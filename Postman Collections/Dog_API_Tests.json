@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "0aab9160-bb58-4f70-9129-90ed75de1185",
+		"name": "Dog API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "images",
+			"item": [
+				{
+					"name": "Random Dog Breeds",
+					"id": "95c86ba7-cb6c-473d-92e7-61178207f64f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/images/search?format=json&limit=4&has_breeds=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"images",
+								"search"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "json"
+								},
+								{
+									"key": "limit",
+									"value": "4"
+								},
+								{
+									"key": "has_breeds",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "26404d45-04c9-4b13-ae46-521de932e8f4"
+		},
+		{
+			"name": "Version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2206cab-418e-49c5-b210-fb67df06dc95",
+						"exec": [
+							"var responseBody = pm.response.json();",
+							"pm.test(\"Response schema is valid\", function () {",
+							"  var schema = {",
+							"    type: \"object\",",
+							"    properties: {",
+							"      message: {",
+							"        type: \"string\"",
+							"      },",
+							"      version: {",
+							"        type: \"string\"",
+							"      }",
+							"    },",
+							"    required: [\"message\", \"version\"]",
+							"  };",
+							"",
+							"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+							"});",
+							"",
+							"",
+							"// Validate that endpoint version is from Dog API",
+							"pm.test(\"Validate that this is calling Dog API\", function() {",
+							"    var savedAPIName = pm.environment.get(\"API Name\");",
+							"    var responseMessage = responseBody.message;",
+							"    ",
+							"    pm.expect(responseMessage).to.equal(savedAPIName);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "3eb8cede-ad52-4ebe-8e61-df7c2710fff8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{api-key}}",
+						"type": "text"
+					}
+				],
+				"url": "{{base_url}}"
+			},
+			"response": []
+		}
+	]
+}
