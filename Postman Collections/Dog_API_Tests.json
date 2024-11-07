@@ -24,7 +24,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/images/search?format=json&limit=4&has_breeds=true",
+							"raw": "{{base_url}}/images/search?format=json&limit=4&has_breeds=false",
 							"host": [
 								"{{base_url}}"
 							],
@@ -43,8 +43,7 @@
 								},
 								{
 									"key": "has_breeds",
-									"value": "true",
-									"type": "text"
+									"value": "false"
 								}
 							]
 						}
